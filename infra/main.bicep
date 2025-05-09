@@ -52,7 +52,19 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 // A full example that leverages azd bicep modules can be seen in the todo-python-mongo template:
 // https://github.com/Azure-Samples/todo-python-mongo/tree/main/infra
 
+var aiConfig = loadYamlContent('./ai.yaml')
 
+module openAiAccount 'core/ai/cognitiveservices.bicep' = {
+  name: 'cognitiveServices'
+  scope: rg
+  params: {
+    location: location
+    tags: tags
+    name: 'openai-${resourceToken}'
+    kind: 'AIServices'
+    deployments: array(aiConfig.?deployments ?? [])
+  }
+}
 
 // Add outputs from the deployment here, if needed.
 //
@@ -64,3 +76,5 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 // To see these outputs, run `azd env get-values`,  or `azd env get-values --output json` for json output.
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
+output OPENAI_ACCOUNT_NAME string = openAiAccount.name
+output OPENAI_ENDPOINT string = openAiAccount.outputs.endpoint
