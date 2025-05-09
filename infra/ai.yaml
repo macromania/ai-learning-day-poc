@@ -1,19 +1,11 @@
 # yaml-language-server: $schema=ai.yaml.json
 
 deployments:
-  - name: gpt-35-turbo
+  - name: gpt-4.1
     model:
       format: OpenAI
-      name: gpt-35-turbo
-      version: "0613"
+      name: gpt-4.1
+      version: "2025-04-14"
     sku:
-      name: Standard
-      capacity: 20
-  - name: text-embedding-ada-002
-    model:
-      format: OpenAI
-      name: text-embedding-ada-002
-      version: "2"
-    sku:
-      name: "Standard"
+      name: GlobalStandard
       capacity: 20
