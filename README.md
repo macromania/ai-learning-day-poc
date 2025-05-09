@@ -35,3 +35,7 @@ Choose `swedencentral` as the region when prompted. This is the only region wher
 ### Get Environment Variables
 
 After the `azd up` command completes, run following command to create environment variables in the `.env` file.
+
+```bash
+azd env get-values > .env
+```
